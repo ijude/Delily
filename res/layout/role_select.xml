@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/role_select_bg"
+    >
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/f_title" />
+
+    <Button
+        android:id="@+id/f_userid_techer"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:onClick="onClick"
+        android:text="@string/i_am_teacher"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/f_userid_student"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_above="@id/f_userid_techer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:onClick="onClick"
+        android:text="@string/i_am_student"
+        android:textSize="20sp" />
+
+</RelativeLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <!-- 不要再用这货了 -->
+	<color name="common_bg">#FFe6e6e6</color>
+	<color name="feed_bg">#ffffff</color>
+	
+    <color name="text_black">#333333</color>
+    <color name="text_white">#ffffff</color>
+    <color name="text_gray">#777777</color>
+    <color name="text_black_disabled">#80333333</color>
+    <color name="text_white_disabled">#80ffffff</color>
+    <color name="text_gray_disabled">#80777777</color>
+    
+    <color name="text_blue">#ff298ecb</color>
+    <color name="text_green">#ff5bb26e</color>
+    
+    <color name="text_shadow_color">#66000000</color>
+</resources>

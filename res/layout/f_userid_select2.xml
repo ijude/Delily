@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_bg"
+    android:orientation="vertical" >
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/f_title" />
+
+    <RelativeLayout
+        android:id="@+id/f_userid_items"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/f_userid_btnL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/f_userid_techer"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text="我是老师"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/f_userid_student"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text="我是学生"
+                android:layout_marginLeft="20dp"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/f_userid_btn_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_above="@id/f_userid_btnL"
+            android:layout_centerInParent="true"
+            android:text="我是"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+</LinearLayout>

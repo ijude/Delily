@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:paddingRight="@dimen/list_item_info_padding"
+    android:paddingLeft="@dimen/list_item_info_padding"
+    android:paddingBottom="3dp"
+    android:paddingTop="3dp"
+    >
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/image"
+        android:src="@drawable/ic_launcher"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+
+         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="title"
+        android:id="@+id/title"
+        android:layout_alignTop="@+id/image"
+        android:layout_toRightOf="@+id/image"
+         />
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="piano"
+        android:id="@+id/major"
+        android:layout_below="@id/title"
+        android:layout_alignLeft="@id/title"
+        android:layout_alignStart="@id/title"
+         />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar"
+        style="?android:attr/ratingBarStyleSmall"
+        android:maxWidth="150dp"
+        android:isIndicator="true"
+        android:layout_below="@+id/title"
+        android:layout_toRightOf="@id/major"
+        android:layout_toEndOf="@id/major"
+        android:numStars="5"
+        android:rating="3"
+        android:stepSize="1" />
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="认真负责"
+        android:id="@+id/desc"
+        android:layout_below="@id/major"
+        android:layout_alignStart="@id/major"
+        android:layout_alignLeft="@id/major"
+         />
+    
+     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="300元/每课时"
+        android:id="@+id/fee"
+        android:layout_alignTop="@+id/title"
+        android:layout_alignParentRight="true"
+         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="area"
+        android:id="@+id/area"
+        android:layout_below="@id/fee"
+        android:layout_alignRight="@id/fee"
+         />
+    
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/area"
+        android:layout_alignRight="@id/fee"
+        android:text="800m"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+   <!--  <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="piano"
+        android:id="@+id/major"
+        android:layout_below="@+id/fee"
+        android:layout_alignRight="@+id/fee"
+         /> -->
+
+</RelativeLayout>
