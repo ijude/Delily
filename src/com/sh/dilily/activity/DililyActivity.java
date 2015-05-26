@@ -1,7 +1,5 @@
 package com.sh.dilily.activity;
 
-import com.sh.dilily.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,24 +9,34 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sh.dilily.R;
+
 /**
  * 标准的嘀哩哩Activity
  * */
-public class DelilyActivity extends BaseActivity {
+public class DililyActivity extends BaseActivity implements View.OnClickListener {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
+//		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 	}
 	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		View titleBar = findViewById(R.id.title_bar);
+		if (titleBar != null) {
+			int[] ids = {R.id.title_left, R.id.title_right};
+			setClickListener(ids, this);
+		}
+	}
 	
 	protected void startActivity(Class<? extends Activity> clz) {
 		startActivity(new Intent(getBaseContext(), clz));
@@ -53,7 +61,7 @@ public class DelilyActivity extends BaseActivity {
 	}
 	
 	protected SpannableString getString(int strRes, int imgRes) {
-		SpannableString spanString = new SpannableString(' ' + getResources().getString(strRes));
+		SpannableString spanString = new SpannableString(strRes > 0 ? ' ' + getString(strRes) : " ");
 		Bitmap b = BitmapFactory.decodeResource(getResources(), imgRes);
 		ImageSpan imgSpan = new ImageSpan(this, b);
 		spanString.setSpan(imgSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -67,5 +75,43 @@ public class DelilyActivity extends BaseActivity {
 		TextView t = (TextView)l.getChildAt(1);
 		t.setText(getResources().getString(strRes));
 		return l;
+	}
+	
+	protected void setTitle(CharSequence title, CharSequence textLeftButton, CharSequence textRightButton) {
+		ViewGroup titleBar = (ViewGroup)findViewById(R.id.title_bar);
+		if (titleBar == null) {
+			return;
+		}
+		titleBar.setVisibility(View.VISIBLE);
+		TextView center = (TextView)titleBar.getChildAt(1);
+		if (title != null) {
+			center.setText(title);
+		} else {
+			center.setText(getString(0, R.drawable.logo_white));
+		}
+		if (textLeftButton != null) {
+			TextView left = (TextView)titleBar.getChildAt(0);
+			left.setEnabled(true);
+			left.setClickable(true);
+			left.setText(textLeftButton);
+		}
+		if (textRightButton != null) {
+			TextView right = (TextView)titleBar.getChildAt(2);
+			right.setEnabled(true);
+			right.setClickable(true);
+			right.setText(textRightButton);
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch(v.getId()) {
+		case R.id.title_left:
+			finish();
+			break;
+		case R.id.title_right:
+			
+			break;
+		}
 	}
 }

@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 
+/**
+ * 老师登录后看到的页面
+ * */
 public class TeacherActivity extends FrameActivity {
 
 	@Override

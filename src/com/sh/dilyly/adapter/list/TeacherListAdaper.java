@@ -1,9 +1,9 @@
-package com.sh.dilily.activity.fragment;
+package com.sh.dilyly.adapter.list;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
-import android.provider.Telephony.Mms.Rate;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,28 +11,33 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.sh.dilily.R;
-import com.sh.dilily.data.STeacherData;
+import com.sh.dilily.data.Teacher;
 
-public class SListAdaper extends BaseAdapter {
+/**
+ * 学生看到的老师列表
+ * */
+public class TeacherListAdaper extends BaseAdapter {
 
 	public Context mContext;
-	public ArrayList<STeacherData> mData = new ArrayList<STeacherData>();
+	public ArrayList<Teacher> mData = new ArrayList<Teacher>();
 	
-	public SListAdaper(Context context){
+	public TeacherListAdaper(Context context){
 		mContext = context;
 	}
-	public void setData(ArrayList<STeacherData> data){
+	
+	public void setData(List<Teacher> data){
 		mData.clear();
 		mData.addAll(data);
 		notifyDataSetChanged();
 	}
+	
 	@Override
 	public int getCount() {
 		return mData.size();
 	}
 
 	@Override
-	public STeacherData getItem(int position) {
+	public Teacher getItem(int position) {
 		if (position >= 0 && position < mData.size()) {
 			return mData.get(position);
 		}
@@ -41,8 +46,10 @@ public class SListAdaper extends BaseAdapter {
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		return 0;
+		Teacher teacher = mData.get(position);
+		if (teacher == null)
+			return 0;
+		return teacher.id;
 	}
 
 	@Override
@@ -54,12 +61,12 @@ public class SListAdaper extends BaseAdapter {
 			root = convertView;
 		}
 		
-		STeacherData data = getItem(position);
+		Teacher data = getItem(position);
 		TextView name = (TextView)root.findViewById(R.id.title);
 		name.setText(data.name);
 		
 		TextView type = (TextView)root.findViewById(R.id.major);
-		type.setText(data.type);
+		type.setText(data.major);
 		
 		RatingBar rb = (RatingBar)root.findViewById(R.id.ratingBar);
 		rb.setNumStars(5);

@@ -3,14 +3,15 @@
  */
 package com.sh.dilily.activity.fragment;
 
-import com.sh.dilily.activity.BaseActivity;
-
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
+
+import com.sh.dilily.activity.BaseActivity;
 
 public abstract class Frame {
 	protected BaseActivity mActivity;
@@ -43,6 +44,10 @@ public abstract class Frame {
 	 */
 	public final BaseActivity getActivity() {
 		return mActivity;
+	}
+	
+	public final Context getContext() {
+		return mActivity.getBaseContext();
 	}
 
 	protected String setLastActivityName() {

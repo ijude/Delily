@@ -17,7 +17,7 @@ import com.sh.dilily.activity.fragment.Frame;
 import com.sh.dilily.widget.QQTabHost;
 import com.sh.dilily.widget.QQTabHost.OnTabSelectionListener;
 
-public class FrameActivity extends DelilyActivity implements TabContentFactory,
+public class FrameActivity extends DililyActivity implements TabContentFactory,
 		OnTabChangeListener {
 	protected TabHost mTabHost;
 	private final Map<String, Frame> mFrames = new HashMap<String, Frame>(2);

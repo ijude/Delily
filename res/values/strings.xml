@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
 
+<resources>
     <string name="app_name">滴哩哩</string>
     <string name="i_am_teacher">我是老师</string>
     <string name="i_am_student">我是学生</string>
     <string name="home">首页</string>
     <string name="message">消息</string>
+    <string name="back">返回</string>
     
+    <string name="all_regions">所有地区</string>
 </resources>

@@ -13,7 +13,7 @@ import com.sh.dilily.R;
  * 欢迎/加载
  * 判断是否登录, 打开不同的界面
  * */
-public class WelcomeActivity extends DelilyActivity {
+public class WelcomeActivity extends DililyActivity {
 	
 	private static final int MSG_ID = 1;
 	
@@ -73,7 +73,7 @@ public class WelcomeActivity extends DelilyActivity {
 	 * */
 	private boolean isLogined() {
 		//TODO
-		return false;
+		return true;
 	}
 	
 	/**

@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/s_main_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="#ffffff"
+    >
+
+    <LinearLayout
+        android:id="@+id/s_main_order"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal" >
+		<Spinner
+		    android:id="@+id/regions"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" />
+
+		<Spinner
+		    android:id="@+id/teacher_genders"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" />
+		
+		<Spinner
+		    android:id="@+id/sort_by"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/s_main_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:fadingEdge="vertical"
+        android:fastScrollEnabled="false"
+        android:listSelector="@android:color/transparent"
+        android:showDividers="middle"
+        android:smoothScrollbar="true"
+        android:cacheColorHint="#ffffff"
+         />
+
+</LinearLayout>

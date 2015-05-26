@@ -28,6 +28,8 @@
         </activity>
         <activity android:name=".activity.StudentActivity">
         </activity>
+        <activity android:name=".activity.TeacherInfoActivity">
+        </activity>
 	</application>
 
 </manifest>
