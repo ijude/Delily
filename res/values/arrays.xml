@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    
+    <string-array name="shanghai_regions">
+        <item>所有区域</item>
+        <item>黄浦</item>
+        <item>徐汇</item>
+        <item>长宁</item>
+        <item>静安</item>
+        <item>普陀</item>
+        <item>闸北</item>
+        <item>虹口</item>
+        <item>闵行</item>
+        <item>宝山</item>
+        <item>嘉定</item>
+        <item>浦东新区</item>
+        <item>金山</item>
+        <item>松江</item>
+        <item>青浦</item>
+        <item>奉贤</item>
+        <item>崇明</item>
+	</string-array>
+	
+    <string-array name="sort_by">
+        <item>无排序</item>
+        <item>价格升序</item>
+        <item>价格降序</item>
+        <item>离我最近</item>
+    </string-array>
+    
+    <string-array name="teacher_genders">
+		<item>所有老师</item>
+		<item>男老师</item>
+		<item>女老师</item>
+	</string-array>
+    
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:background="#ffffff"
+    >
+    <include layout="@layout/title_bar"/>
+	<ListView
+	    android:id="@+id/teacher_info_list"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:background="#ffffff"
+	    android:fadingEdge="none"
+	    android:fastScrollEnabled="false"
+	    android:listSelector="@android:color/transparent"
+	    android:smoothScrollbar="true"
+	    android:cacheColorHint="#ffffff"
+	    android:divider="#cccccc"
+	    android:dividerHeight="1dp"
+	    />
+</LinearLayout>

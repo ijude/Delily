@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="100dp"
+    android:background="@drawable/header_bg"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    >
+    <ImageView
+        android:id="@+id/teacher_avatar"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/avatar"
+        />
+    <TextView 
+        android:id="@+id/teacher_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:maxWidth="200dp"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:layout_marginTop="8dp"
+        />
+    <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/teacher_rating"
+        android:src="@drawable/stars"
+        android:layout_marginTop="8dp"
+        />
+<!-- 
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/teacher_rating"
+        style="?android:attr/ratingBarStyleIndicator"
+        android:maxWidth="250dp"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:rating="3"
+        android:stepSize="1" />
+ -->
+</LinearLayout>
