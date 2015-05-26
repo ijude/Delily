@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * 标准的嘀哩哩Activity，有标题，可能含有左右两个按钮
+ * 标准的嘀哩哩Activity
  * */
 public class DelilyActivity extends BaseActivity {
 	
