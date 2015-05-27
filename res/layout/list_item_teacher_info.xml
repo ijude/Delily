@@ -8,7 +8,7 @@
     android:paddingTop="3dp"
     >
 
-    <ImageView
+    <com.sh.dilily.widget.CircleImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:id="@+id/image"

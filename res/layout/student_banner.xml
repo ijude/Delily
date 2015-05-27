@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     >
-    <ImageView
+    <com.sh.dilily.widget.CircleImageView
         android:id="@+id/teacher_avatar"
         android:layout_width="90dp"
         android:layout_height="90dp"

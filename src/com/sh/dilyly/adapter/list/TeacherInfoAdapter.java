@@ -24,7 +24,7 @@ public class TeacherInfoAdapter extends BaseAdapter {
 	private Context context;
 	private Teacher teacher;
 	private int viewport;
-	private View[] views;
+//	private View[] views;
 
 	/**
 	 * @param viewport 视角, 老师看到的和学生看到的显示不同的内容
@@ -52,7 +52,7 @@ public class TeacherInfoAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int position) {
-		return 0;
+		return position + 1;
 	}
 	
 	private View getBanner(ViewGroup parent, View convertView) {
@@ -77,22 +77,24 @@ public class TeacherInfoAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+/*
 		if (views == null) {
 			views = new View[getCount()];
 		} else if (position < views.length && views[position] != null) {
 			return views[position];
 		}
+*/
 		View v = null;
 		if (position == 0) {
 			v = getBanner(parent, convertView);
-			views[position] = v;
+//			views[position] = v;
 			return v;
 		}
 		if (VIEWPORT_TEACHER == viewport)
 			v = getViewForTeacher(teacher, position, convertView);
 		else
 			v = getViewForStudent(teacher, position, convertView);
-		views[position] = v;
+//		views[position] = v;
 		return v;
 	}
 	

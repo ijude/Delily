@@ -16,7 +16,7 @@ public class TeacherInfoActivity extends DililyActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.teacher_info);
-		setTitle(null, "老师信息", getString(R.string.back), null);
+		setTitle(null, "老师资料", getString(R.string.back), "预约课程");
 		ListView lv = (ListView)findViewById(R.id.teacher_info_list);
 		int teacherId = getIntent().getIntExtra("teacherId", 0);
 		TeacherInfoAdapter adapter = new TeacherInfoAdapter(getBaseContext(), getTeacher(teacherId), TeacherInfoAdapter.VIEWPORT_STUDENT);
