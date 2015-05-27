@@ -12,8 +12,8 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.sh.dilily.R;
-import com.sh.dilily.activity.fragment.SMainFragment;
-import com.sh.dilily.activity.fragment.SMessageFragment;
+import com.sh.dilily.activity.fragment.StudentMainFragment;
+import com.sh.dilily.activity.fragment.StudentMessageFragment;
 
 public class MainActivity extends FrameActivity implements View.OnClickListener {
 
@@ -104,11 +104,11 @@ public class MainActivity extends FrameActivity implements View.OnClickListener 
 		setContentView(R.layout.student_activity);
 		TextView t1 = new TextView(this);
 		t1.setText("main");
-		addFrame(SMainFragment.class, t1);
+		addFrame(StudentMainFragment.class, t1);
 
 		TextView t2 = new TextView(this);
 		t2.setText("message");
-		addFrame(SMessageFragment.class, t2);
+		addFrame(StudentMessageFragment.class, t2);
 
 	}
 

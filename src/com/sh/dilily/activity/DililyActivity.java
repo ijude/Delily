@@ -77,29 +77,29 @@ public class DililyActivity extends BaseActivity implements View.OnClickListener
 		return l;
 	}
 	
-	protected void setTitle(CharSequence title, CharSequence textLeftButton, CharSequence textRightButton) {
-		ViewGroup titleBar = (ViewGroup)findViewById(R.id.title_bar);
+	@SuppressWarnings("deprecation")
+	public void setTitle(View parent, CharSequence title, CharSequence leftButtonText, CharSequence rightButtonText) {
+		ViewGroup titleBar = (ViewGroup)(parent == null ? findViewById(R.id.title_bar) : parent.findViewById(R.id.title_bar));
 		if (titleBar == null) {
 			return;
 		}
 		titleBar.setVisibility(View.VISIBLE);
 		TextView center = (TextView)titleBar.getChildAt(1);
+		center.setBackgroundDrawable(null);
 		if (title != null) {
 			center.setText(title);
 		} else {
 			center.setText(getString(0, R.drawable.logo_white));
 		}
-		if (textLeftButton != null) {
+		if (leftButtonText != null) {
 			TextView left = (TextView)titleBar.getChildAt(0);
-			left.setEnabled(true);
-			left.setClickable(true);
-			left.setText(textLeftButton);
+			left.setText(leftButtonText);
+			left.setVisibility(View.VISIBLE);
 		}
-		if (textRightButton != null) {
+		if (rightButtonText != null) {
 			TextView right = (TextView)titleBar.getChildAt(2);
-			right.setEnabled(true);
-			right.setClickable(true);
-			right.setText(textRightButton);
+			right.setText(rightButtonText);
+			right.setVisibility(View.VISIBLE);
 		}
 	}
 

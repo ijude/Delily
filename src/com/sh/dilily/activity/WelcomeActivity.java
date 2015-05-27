@@ -73,7 +73,7 @@ public class WelcomeActivity extends DililyActivity {
 	 * */
 	private boolean isLogined() {
 		//TODO
-		return true;
+		return false;
 	}
 	
 	/**
@@ -81,7 +81,7 @@ public class WelcomeActivity extends DililyActivity {
 	 * */
 	private boolean isTeacher() {
 		//TODO
-		return false;
+		return true;
 	}
 	
 	/**

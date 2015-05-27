@@ -5,17 +5,16 @@ import com.sh.dilily.R;
 import android.view.LayoutInflater;
 import android.view.View;
 
-public class SMessageFragment extends Frame {
+public class TeacherMessageFragment extends Frame {
 
 	@Override
 	public void fillData() {
-		// TODO Auto-generated method stub
-
 	}
-
+	
+	@Override
 	public View onCreateView(LayoutInflater inflater) {
-		View v = inflater.inflate(R.layout.layout_s_message, null);
-		return v;
+		View view = View.inflate(getContext(), R.layout.teacher_message, null);
+		setTitle(view, "返回", null, null);
+		return view;
 	}
-
 }

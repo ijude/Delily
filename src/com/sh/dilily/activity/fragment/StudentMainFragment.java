@@ -17,7 +17,7 @@ import com.sh.dilily.activity.TeacherInfoActivity;
 import com.sh.dilily.data.Teacher;
 import com.sh.dilyly.adapter.list.TeacherListAdaper;
 
-public class SMainFragment extends Frame implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
+public class StudentMainFragment extends Frame implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
 	private int regionSelection = -1;
 	private int genderSelection = -1;
 	private int sortSelection = -1;
@@ -63,14 +63,14 @@ public class SMainFragment extends Frame implements AdapterView.OnItemClickListe
 	private void initListView(View view) {
 		ListView lv = null;
 		if (view == null)
-			lv = (ListView) findViewById(R.id.s_main_listview);
+			lv = (ListView) findViewById(R.id.student_teachers_list);
 		else
-			lv = (ListView) view.findViewById(R.id.s_main_listview);
+			lv = (ListView) view.findViewById(R.id.student_teachers_list);
 		TeacherListAdaper sla = new TeacherListAdaper(getActivity());
 		ArrayList<Teacher> data = new ArrayList<Teacher>();
 		for (int i = 0; i < 20; i++) {
 			Teacher item = new Teacher();
-			item.name = "lily";
+			item.name = "Lily" + (i + 1);
 			item.major = "piano";
 			item.desc = "认真负责，完成每个孩子的梦想";
 			item.price = 300;
@@ -95,7 +95,7 @@ public class SMainFragment extends Frame implements AdapterView.OnItemClickListe
 		intent.putExtra("teacherId", id);
 		intent.putExtra("position", position);
 		getActivity().startActivity(intent);
-		Toast.makeText(getContext(), position + " / " + id, Toast.LENGTH_SHORT).show();
+//		Toast.makeText(getContext(), position + " / " + id, Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

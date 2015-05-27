@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.sh.dilily.activity.BaseActivity;
+import com.sh.dilily.activity.DililyActivity;
 
 public abstract class Frame {
 	protected BaseActivity mActivity;
@@ -121,4 +122,8 @@ public abstract class Frame {
 		return false;
 	}
 
+	protected void setTitle(View parent, CharSequence title, CharSequence leftButtonText, CharSequence rightButtonText) {
+		if (mActivity instanceof DililyActivity)
+			((DililyActivity)mActivity).setTitle(parent, title, leftButtonText, rightButtonText);
+	}
 }

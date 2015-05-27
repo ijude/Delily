@@ -2,7 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/header_bg"
     android:orientation="vertical"
     android:gravity="center_horizontal"
@@ -14,7 +14,7 @@
         android:layout_marginTop="10dp"
         android:src="@drawable/avatar"
         />
-    <TextView 
+    <TextView
         android:id="@+id/teacher_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,6 +23,7 @@
         android:textColor="#ffffff"
         android:textSize="18sp"
         android:layout_marginTop="8dp"
+        android:visibility="gone"
         />
     <ImageView 
         android:layout_width="wrap_content"

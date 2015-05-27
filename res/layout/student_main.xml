@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/s_main_root"
     android:layout_width="match_parent"
@@ -5,7 +7,11 @@
     android:orientation="vertical" 
     android:background="#ffffff"
     >
-
+<!-- 
+	<include layout="@layout/title_bar"/>
+ -->
+	<include layout="@layout/student_banner"/>
+	
     <LinearLayout
         android:id="@+id/s_main_order"
         android:layout_width="match_parent"
@@ -28,7 +34,7 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/s_main_listview"
+        android:id="@+id/student_teachers_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ffffff"

@@ -5,7 +5,7 @@ import android.widget.ListView;
 
 import com.sh.dilily.R;
 import com.sh.dilily.data.Teacher;
-import com.sh.dilyly.adapter.list.TeacherInfoAdaper;
+import com.sh.dilyly.adapter.list.TeacherInfoAdapter;
 
 /**
  * 老师资料界面, 学生看到的
@@ -16,10 +16,10 @@ public class TeacherInfoActivity extends DililyActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.teacher_info);
-		setTitle("老师信息", getString(R.string.back), null);
+		setTitle(null, "老师信息", getString(R.string.back), null);
 		ListView lv = (ListView)findViewById(R.id.teacher_info_list);
 		int teacherId = getIntent().getIntExtra("teacherId", 0);
-		TeacherInfoAdaper adapter = new TeacherInfoAdaper(getBaseContext(), getTeacher(teacherId));
+		TeacherInfoAdapter adapter = new TeacherInfoAdapter(getBaseContext(), getTeacher(teacherId), TeacherInfoAdapter.VIEWPORT_STUDENT);
 		lv.setAdapter(adapter);
 	}
 	
