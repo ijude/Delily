@@ -14,11 +14,11 @@ import com.sh.dilily.activity.ChatActivity;
 import com.sh.dilily.data.Message;
 import com.sh.dilyly.adapter.list.MessageListAdapter;
 
-public class TeacherMessageFragment extends MessageFragment {
+public abstract class MessageFragment extends Frame implements AdapterView.OnItemClickListener {
 
-	private static final int CHAT_REQUEST_CODE = 1234;
-	private MessageListAdapter adapter;
-	private List<Message> msgs;
+	protected static final int CHAT_REQUEST_CODE = 1234;
+	protected MessageListAdapter adapter;
+	protected List<Message> msgs;
 	
 	@Override
 	public void fillData() {

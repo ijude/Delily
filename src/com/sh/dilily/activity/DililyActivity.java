@@ -1,15 +1,18 @@
 package com.sh.dilily.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,6 +24,19 @@ import com.sh.dilily.R;
  * 标准的嘀哩哩Activity
  * */
 public class DililyActivity extends BaseActivity implements View.OnClickListener {
+/*	
+	public static int SCREEN_WIDTH = -1;
+	public static int SCREEN_HEIGHT;
+*/
+	public DililyActivity() {
+/*
+		if (SCREEN_WIDTH == -1) {
+			WindowManager wm = (WindowManager) getBaseContext().getSystemService(Context.WINDOW_SERVICE);
+			SCREEN_WIDTH = wm.getDefaultDisplay().getWidth();
+			SCREEN_HEIGHT = wm.getDefaultDisplay().getHeight();
+		}
+*/
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +68,9 @@ public class DililyActivity extends BaseActivity implements View.OnClickListener
 		}
 	}
 	
+	protected void toast(long num) {
+		toast(String.valueOf(num));
+	}
 	protected void toast(String msg) {
 		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 	}
@@ -110,7 +129,6 @@ public class DililyActivity extends BaseActivity implements View.OnClickListener
 			finish();
 			break;
 		case R.id.title_right:
-			
 			break;
 		}
 	}

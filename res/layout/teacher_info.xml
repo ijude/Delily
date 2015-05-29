@@ -18,7 +18,6 @@
 		    android:background="#ffffff"
 		    android:fadingEdge="none"
 		    android:fastScrollEnabled="false"
-		    android:listSelector="@android:color/transparent"
 		    android:smoothScrollbar="true"
 		    android:cacheColorHint="#ffffff"
 		    android:divider="#cccccc"

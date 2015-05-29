@@ -7,6 +7,8 @@
     <string name="home">首页</string>
     <string name="message">消息</string>
     <string name="back">返回</string>
+    <string name="send">发送</string>
+    <string name="loading">加载中</string>
     
     <string name="all_regions">所有地区</string>
 </resources>

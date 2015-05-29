@@ -22,14 +22,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LoginActivity">
-        </activity>
-        <activity android:name=".activity.TeacherActivity">
-        </activity>
-        <activity android:name=".activity.StudentActivity">
-        </activity>
-        <activity android:name=".activity.TeacherInfoActivity">
-        </activity>
+        <activity android:name=".activity.LoginActivity"></activity>
+        <activity android:name=".activity.TeacherActivity"></activity>
+        <activity android:name=".activity.StudentActivity"></activity>
+        <activity android:name=".activity.TeacherInfoActivity"></activity>
+        <activity android:name=".activity.EditActivity"></activity>
+        <activity android:name=".activity.ChatActivity"></activity>
 	</application>
 
 </manifest>

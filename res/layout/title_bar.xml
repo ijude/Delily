@@ -3,7 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/title_bar"
     android:layout_width="fill_parent"
-    android:layout_height="35dp"
+    android:layout_height="33dp"
     android:layout_gravity="top"
     android:orientation="horizontal"
     android:gravity="bottom"

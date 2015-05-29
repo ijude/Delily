@@ -10,6 +10,8 @@ public class Teacher extends People {
 	public int price;
 	/** 评分 */
 	public int rate;
+	/** 个人经历 */
+	public String experience;
 	/** 老师特点, 或签名 */
 	public String desc;
 	
