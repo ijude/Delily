@@ -2,10 +2,12 @@ package com.sh.dilily.handler;
 
 import java.lang.ref.WeakReference;
 
-import com.sh.dilily.activity.DililyActivity;
-
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+
+import com.sh.dilily.activity.DililyActivity;
+import com.sh.dilily.net.DililyNetworkHelper;
 
 public abstract class DililyHandler<T extends DililyActivity> extends Handler {
 	
@@ -30,13 +32,19 @@ public abstract class DililyHandler<T extends DililyActivity> extends Handler {
 	/**
 	 * may null
 	 * */
-	/*
 	public  T getActivity() {
-		return activity.get();
+		return activity == null ? null : activity.get();
 	}
-	*/
 	
 	public void release() {
 		activity = null;
+	}
+	
+	public DililyNetworkHelper getNetwork() {
+		T activity = getActivity();
+		Context context = null;
+		if (activity != null)
+			context = activity.getApplicationContext();
+		return DililyNetworkHelper.get(context);
 	}
 }

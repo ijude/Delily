@@ -105,7 +105,7 @@ public class ChatActivity extends DililyActivity implements
         IntentFilter intentFilter = new IntentFilter();  
         intentFilter.addAction("com.sh.dilily.message.RECEIVER");  
         registerReceiver(receiver, intentFilter);
-        unregisterReceiver(receiver);
+//		unregisterReceiver(receiver);
 	}
 	
 	private List<Message> loadMessages() {
@@ -198,7 +198,7 @@ public class ChatActivity extends DililyActivity implements
 		return false;
 	}
 	
-	public class MessageReceiver extends BroadcastReceiver {  
+	private class MessageReceiver extends BroadcastReceiver {  
         @Override  
         public void onReceive(Context context, Intent intent) {  
 //        	int progress = intent.getIntExtra("progress", 0);  

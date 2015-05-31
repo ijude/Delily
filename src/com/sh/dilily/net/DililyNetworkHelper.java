@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ import com.sh.dilily.db.DililyDatabaseHelper;
 import com.sh.dilyly.util.NetUtils;
 import com.sh.dilyly.util.Utils;
 
-public final class DililyNetwrokHelper {
+public final class DililyNetworkHelper {
 	private static final String ENCODING = "UTF-8";
 	private static final String FORMAT = "json";
 	
@@ -35,8 +36,16 @@ public final class DililyNetwrokHelper {
 	private static String appVersion;
 	private static String channel;
 	
-	public DililyNetwrokHelper(Context context) {
+	private static DililyNetworkHelper helper;
+	
+	public DililyNetworkHelper(Context context) {
 		this.context = context;
+	}
+	
+	public static synchronized DililyNetworkHelper get(Context context) {
+		if (helper == null && context != null)
+			helper = new DililyNetworkHelper(context);
+		return helper;
 	}
 	
 	/**
@@ -56,7 +65,7 @@ public final class DililyNetwrokHelper {
 		map.put("key", appKey);
 		map.put("version", appVersion);
 		map.put("channel", channel);
-		String serialId = DililyDatabaseHelper.get(context).getConfiguation("serialId");
+		String serialId = DililyDatabaseHelper.get(context).getConfiguration("serialId");
 		map.put("serialId", serialId == null ? "" : serialId);
 		int len = params.length;
 		for (int i=0; i<len; i+=2) {
@@ -163,7 +172,7 @@ public final class DililyNetwrokHelper {
 	 * */
 	public Post getUploadImagePost() {
 		String uri = "/api/sys/upload.xhtml";
-		return null;
+		return toPost(uri);
 	}
 	
 	/**
@@ -282,24 +291,66 @@ public final class DililyNetwrokHelper {
 		return NetUtils.post(post.getUrl(), post.getPairs());
 	}
 	
-	public JSONObject parseResult(String result) {
-		JSONTokener parser = new JSONTokener(result.trim());
+	/**
+	 * 解析 data={}
+	 * */
+	public static Map<String, Object> parseResult(String result) {
+		if (result == null || result.length() == 0)
+			return null;
+		result = result.trim();
+		if (result.charAt(0) != '{') {
+			int p = result.indexOf('=');
+			result = result.substring(p + 1);
+		}
 		try {
+			JSONTokener parser = new JSONTokener(result.trim());
+/*
+			String key = (String)parser.nextValue();
+			System.out.println(key);
+			Object o = parser.nextValue();
+*/
 			JSONObject object = (JSONObject) parser.nextValue();
-			return object;
+			return toMap(object);
 		} catch (JSONException e) {
+		} catch (ClassCastException e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
 	
-	public static boolean isSuccess(JSONObject object) {
+	public static boolean isSuccess(Map<String, Object> object) {
 		if (object == null)
 			return false;
 		try {
-			String code = object.getString("code");
+			String code = (String)object.get("code");
 			return code != null && "0000".equals(code.trim());
-		} catch (JSONException e) {
+		} catch (ClassCastException e) {
+		} catch (Exception e) {
 		}
 		return false;
 	}
+	
+	public static Map<String, Object> toMap(JSONObject jo) {
+		if (jo == null)
+			return null;
+		try {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			Iterator<String> it = jo.keys();
+			while (it.hasNext()) {
+				String key = (String) it.next();
+				Object o = jo.get(key);
+				if (o == null)
+					continue;
+				if (o instanceof JSONObject) {
+					map.put(key, toMap((JSONObject)o));
+				} else {
+					map.put(key, o);
+				}
+			}
+			return map;
+		} catch(JSONException e) {
+		}
+		return null;
+	}
+	
 }

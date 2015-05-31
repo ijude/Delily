@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.sh.dilily.data.Message;
+import com.sh.dilyly.util.Utils;
 
 public class DililyDatabaseHelper extends SQLiteOpenHelper {
 	
@@ -44,12 +45,12 @@ public class DililyDatabaseHelper extends SQLiteOpenHelper {
 			+ "`toUser` VARCHAR(30), "
 			+ "`toUserId` VARCHAR(30), "
 			+ "`time` VARCHAR(20), "
-			+ "`content` VARCHAR(1024)"
-			+ "`unread` INT(1)"
+			+ "`content` VARCHAR(1024),"
+			+ "`unread` INTEGER(1) "
 			+ ")",
 		};
 		execSQLs(db, sqls);
-		db.close();
+//		db.close();
 	}
 
 	@Override
@@ -70,7 +71,7 @@ public class DililyDatabaseHelper extends SQLiteOpenHelper {
 		db.close();
 	}
 	
-	public String getConfiguation(String key) {
+	public String getConfiguration(String key) {
 		String sql = "SELECT `value` FROM `configurations` WHERE `key`=?";
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor c = db.rawQuery(sql, new String[]{key});
@@ -83,6 +84,11 @@ public class DililyDatabaseHelper extends SQLiteOpenHelper {
 		c.close();
 		db.close();
 		return config;
+	}
+	
+	public int getConfigurationInt(String key, int def) {
+		String val = getConfiguration(key);
+		return Utils.toInteger(val, def);
 	}
 	
 	public void addMessage(Message msg) {

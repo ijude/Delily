@@ -15,4 +15,7 @@ public class Teacher extends People {
 	/** 老师特点, 或签名 */
 	public String desc;
 	
+	public Teacher() {
+		type = TYPE_TEACHER;
+	}
 }

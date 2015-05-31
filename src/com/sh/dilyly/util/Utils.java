@@ -128,12 +128,24 @@ public class Utils {
 	}
 
 	/** byte to string */
-	private static String toString(byte[] b) {
+	private static String toString(byte[] md) {
+		char hexDigits[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+		int j = md.length;
+        char str[] = new char[j * 2];
+        int k = 0;
+        for (int i = 0; i < j; i++) {
+            byte byte0 = md[i];
+            str[k++] = hexDigits[byte0 >>> 4 & 0xf];
+            str[k++] = hexDigits[byte0 & 0xf];
+        }
+        return new String(str);
+/*
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < b.length; i++) {
-			sb.append(b[i]);
+			sb.append((byte)b[i]);
 		}
 		return sb.toString();
+*/
 	}
 	
 	/**

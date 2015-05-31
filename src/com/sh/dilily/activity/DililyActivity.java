@@ -2,25 +2,22 @@ package com.sh.dilily.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ImageSpan;
+import android.content.IntentFilter;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sh.dilily.R;
+import com.sh.dilily.data.Post;
 import com.sh.dilily.db.DililyDatabaseHelper;
+import com.sh.dilily.net.DililyNetworkHelper;
+import com.sh.dilily.net.NetworkReceiver;
+import com.sh.dilily.service.NetworkService;
 
 /**
  * 标准的嘀哩哩Activity
  * */
 public class DililyActivity extends BaseActivity implements View.OnClickListener {
+	
+	private NetworkReceiver networkReceiver;
 	
 	public DililyActivity() {
 	}
@@ -35,12 +32,19 @@ public class DililyActivity extends BaseActivity implements View.OnClickListener
 		}
 	}
 	
-	protected DililyDatabaseHelper getDatabase() {
-		return DililyDatabaseHelper.get(getBaseContext());
+	protected DililyNetworkHelper getNetwork() {
+		return DililyNetworkHelper.get(getApplicationContext());
 	}
 	
+	protected DililyDatabaseHelper getDatabase() {
+		return DililyDatabaseHelper.get(getApplicationContext());
+	}
+	
+	protected int getConfigurationInt(String key, int def) {
+		return getDatabase().getConfigurationInt(key, def);
+	}
 	protected String getConfiguration(String key) {
-		return getDatabase().getConfiguation(key);
+		return getDatabase().getConfiguration(key);
 	}
 	
 	protected void setConfiguration(String key, String value) {
@@ -51,68 +55,67 @@ public class DililyActivity extends BaseActivity implements View.OnClickListener
 		startActivity(new Intent(getBaseContext(), clz));
 	}
 	
-	protected void setClickListener(int[] ids, View.OnClickListener listener) {
-		if (ids == null || ids.length == 0 || listener == null)
-			return;
-		for (int id : ids) {
-			View v = findViewById(id);
-			if (v != null)
-				v.setOnClickListener(listener);
+	protected void request(String url, int requestCode) {
+		request(url, requestCode, null);
+	}
+	protected void request(String url, int requestCode, String extra) {
+		if (networkReceiver == null)
+			error("需要先注册接收服务");
+		Intent intent = new Intent(getBaseContext(), NetworkService.class);
+		intent.putExtra(NetworkService.KEY_URL, url);
+		intent.putExtra(NetworkService.KEY_REQUEST, requestCode);
+		if (extra != null) {
+			intent.putExtra(NetworkService.KEY_EXTRA, extra);
 		}
+		startService(intent);
 	}
 	
-	protected void toast(long num) {
-		toast(String.valueOf(num));
+	protected void request(Post post, int requestCode) {
+		request(post, requestCode, null);
 	}
-	protected void toast(String msg) {
-		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-	}
-	
-	protected View createView(int res) {
-		return getLayoutInflater().inflate(res, null);
-	}
-	
-	protected SpannableString getString(int strRes, int imgRes) {
-		SpannableString spanString = new SpannableString(strRes > 0 ? ' ' + getString(strRes) : " ");
-		Bitmap b = BitmapFactory.decodeResource(getResources(), imgRes);
-		ImageSpan imgSpan = new ImageSpan(this, b);
-		spanString.setSpan(imgSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		return spanString;
-	}
-	
-	protected View getIcon(int strRes, int imgRes) {
-		LinearLayout l = (LinearLayout)createView(R.layout.icon);
-		ImageView v = (ImageView)l.getChildAt(0);
-		v.setImageDrawable(getResources().getDrawable(imgRes));
-		TextView t = (TextView)l.getChildAt(1);
-		t.setText(getResources().getString(strRes));
-		return l;
-	}
-	
-	@SuppressWarnings("deprecation")
-	public void setTitle(View parent, CharSequence title, CharSequence leftButtonText, CharSequence rightButtonText) {
-		ViewGroup titleBar = (ViewGroup)(parent == null ? findViewById(R.id.title_bar) : parent.findViewById(R.id.title_bar));
-		if (titleBar == null) {
-			return;
+	protected void request(Post post, int requestCode, String extra) {
+		if (networkReceiver == null)
+			error("需要先注册接收服务");
+		Intent intent = new Intent(getBaseContext(), NetworkService.class);
+		intent.putExtra(NetworkService.KEY_POST, post);
+		intent.putExtra(NetworkService.KEY_REQUEST, requestCode);
+		if (extra != null) {
+			intent.putExtra(NetworkService.KEY_EXTRA, extra);
 		}
-		titleBar.setVisibility(View.VISIBLE);
-		TextView center = (TextView)titleBar.getChildAt(1);
-		center.setBackgroundDrawable(null);
-		if (title != null) {
-			center.setText(title);
+		startService(intent);
+	}
+	
+	protected void startNetworkService() {
+		Intent intent = new Intent(getBaseContext(), NetworkService.class);
+		startService(intent);
+	}
+	
+	protected void registerNetworkReceiver(NetworkReceiver receiver) {
+		if (networkReceiver == null) {
+	        IntentFilter intentFilter = new IntentFilter();
+	        intentFilter.addAction(NetworkService.ACTION_NETWORK_RESULT);  
+	        registerReceiver(receiver, intentFilter);
+	        networkReceiver = receiver;
 		} else {
-			center.setText(getString(0, R.drawable.logo_white));
+			error("已注册");
 		}
-		if (leftButtonText != null) {
-			TextView left = (TextView)titleBar.getChildAt(0);
-			left.setText(leftButtonText);
-			left.setVisibility(View.VISIBLE);
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if (networkReceiver != null) {
+			unregisterReceiver(networkReceiver);
+			networkReceiver = null;
 		}
-		if (rightButtonText != null) {
-			TextView right = (TextView)titleBar.getChildAt(2);
-			right.setText(rightButtonText);
-			right.setVisibility(View.VISIBLE);
-		}
+	}
+	
+	
+	protected void error() {
+		throw new RuntimeException();
+	}
+	protected void error(String msg) {
+		throw new RuntimeException(msg);
 	}
 
 	@Override
