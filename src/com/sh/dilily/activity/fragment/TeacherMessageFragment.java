@@ -46,7 +46,7 @@ public class TeacherMessageFragment extends MessageFragment {
 			msg.id = 1000 + i;
 			msg.time = "2015-05-29";
 			msg.unread = Math.random() * 10 > 5;
-			msg.user = "某人" + i;
+			msg.fromUser = "某人" + i;
 			msg.msg = "想请你上课，请快快联系我吧！谢谢";
 			messages.add(msg);
 		}
@@ -71,7 +71,7 @@ public class TeacherMessageFragment extends MessageFragment {
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Message msg = (Message)adapter.getItem(position);
 		Intent intent = new Intent(getContext(), ChatActivity.class);
-		intent.putExtra("user", msg.user);
+		intent.putExtra("user", msg.fromUser);
 		startActivityForResult(intent, CHAT_REQUEST_CODE);
 	}
 	

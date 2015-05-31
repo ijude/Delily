@@ -1,7 +1,16 @@
 package com.sh.dilyly.util;
 
+import java.io.Closeable;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import android.app.Dialog;
 import android.content.Context;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
+import android.telephony.TelephonyManager;
 import android.widget.Toast;
 
 import com.sh.dilily.widget.LoadingDialog;
@@ -82,4 +91,81 @@ public class Utils {
 		}
 		return new String(c);
 	}
+	
+	public static void close(Closeable o) {
+		try {
+			if (o != null)
+				o.close();
+		} catch (Exception e) {
+		}
+	}
+	
+	public void sleep(int ms) {
+		try {
+			Thread.sleep(ms);
+		} catch (InterruptedException e) {
+		}
+	}
+	
+	public static String md5(byte[] val) throws NoSuchAlgorithmException {
+        MessageDigest md5 = MessageDigest.getInstance("MD5");  
+        md5.update(val);  
+        byte[] m = md5.digest();
+        return toString(m);
+	}
+	
+	public static String md5(String val) {
+		try {
+			return md5(val.getBytes("UTF-8"));
+		} catch (NoSuchAlgorithmException e) {
+		} catch (UnsupportedEncodingException e) {
+		}
+		return val;
+	}
+	
+	public static String md5(String str, String salt) {
+		return md5(salt + str);
+	}
+
+	/** byte to string */
+	private static String toString(byte[] b) {
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < b.length; i++) {
+			sb.append(b[i]);
+		}
+		return sb.toString();
+	}
+	
+	/**
+	 * GPS定位，需要权限
+	 * <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+	 * */
+	public static Location getLocation(Context context) {
+		String serviceName = Context.LOCATION_SERVICE;
+		LocationManager lm = (LocationManager) context.getSystemService(serviceName);
+		
+		Criteria criteria = new Criteria();
+		criteria.setAccuracy(Criteria.ACCURACY_FINE); // 高精度
+		criteria.setAltitudeRequired(false);
+		criteria.setBearingRequired(false);
+		criteria.setCostAllowed(true);
+		criteria.setPowerRequirement(Criteria.POWER_LOW); // 低功耗
+
+		String provider = lm.getBestProvider(criteria, true); // 获取GPS信息
+		Location location = lm.getLastKnownLocation(provider); // 通过GPS获取位置
+		return location;
+	}
+	
+	/**
+	 * 获取唯一设备ID
+	 * imei+imsi
+	 * 需要权限<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	 * */
+	public static String getDeviceId(Context context) {
+		TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+		String imei = tm.getDeviceId();
+		String imsi = tm.getSubscriberId();
+		return imei + imsi;
+	}
+
 }

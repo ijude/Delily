@@ -1,13 +1,14 @@
 package com.sh.dilily.activity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
+
 import com.sh.dilily.R;
+import com.sh.dilily.handler.DililyHandler;
 
 /**
  * 欢迎/加载
@@ -15,38 +16,34 @@ import com.sh.dilily.R;
  * */
 public class WelcomeActivity extends DililyActivity {
 	
-	private static final int MSG_ID = 1;
+	private static final int MSG_DISPATCH = 1;
+	private static final int MSG_CHECK_UPDATE = 2;
 	
-	@SuppressLint("HandlerLeak")
-	private Handler handler = new Handler() {
-		public void handleMessage(android.os.Message msg) {
-			int what = msg.what;
-			switch (what) {
-			case MSG_ID:
-				dispatch();
-				return;
-			}
-			super.handleMessage(msg);
-		}
-	};
+	private static final int WELCOME = 500;			//显示欢迎时间
+	
+	private WelcomeHandler handler;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		
 		ImageView splash = new ImageView(this);
 		splash.setImageResource(R.drawable.welcome_bg);
 		splash.setScaleType(ImageView.ScaleType.FIT_XY);
 		ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 		splash.setLayoutParams(lp);
 		setContentView(splash);
+		
+		initHandler();
 	}
 	
-	@Override
-	protected void onResume() {
-		super.onResume();
-		
-		handler.sendMessageDelayed(Message.obtain(handler, MSG_ID), 500);
+	private void initHandler() {
+		if (handler == null) {
+			handler = new WelcomeHandler(this);
+			handler.sendMessageDelayed(Message.obtain(handler, MSG_DISPATCH), WELCOME);
+		}
 	}
 	
 	@Override
@@ -91,4 +88,35 @@ public class WelcomeActivity extends DililyActivity {
 		return !isTeacher();
 	}
 	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if (handler != null) {
+			handler.release();
+			handler = null;
+		}
+	}
+	
+	static class WelcomeHandler extends DililyHandler<WelcomeActivity> {
+
+		public WelcomeHandler(WelcomeActivity activity) {
+			super(activity);
+		}
+
+		@Override
+		public boolean handleMessage(WelcomeActivity activity, int what) {
+			switch (what) {
+			case MSG_DISPATCH:
+				activity.dispatch();
+				break;
+			case MSG_CHECK_UPDATE:
+				
+				break;
+			default:
+				return false;
+			}
+			return true;
+		}
+		
+	}
 }

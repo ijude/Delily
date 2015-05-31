@@ -1,49 +1,30 @@
 package com.sh.dilily.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Point;
-import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sh.dilily.R;
+import com.sh.dilily.db.DililyDatabaseHelper;
 
 /**
  * 标准的嘀哩哩Activity
  * */
 public class DililyActivity extends BaseActivity implements View.OnClickListener {
-/*	
-	public static int SCREEN_WIDTH = -1;
-	public static int SCREEN_HEIGHT;
-*/
+	
 	public DililyActivity() {
-/*
-		if (SCREEN_WIDTH == -1) {
-			WindowManager wm = (WindowManager) getBaseContext().getSystemService(Context.WINDOW_SERVICE);
-			SCREEN_WIDTH = wm.getDefaultDisplay().getWidth();
-			SCREEN_HEIGHT = wm.getDefaultDisplay().getHeight();
-		}
-*/
 	}
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-//		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -52,6 +33,18 @@ public class DililyActivity extends BaseActivity implements View.OnClickListener
 			int[] ids = {R.id.title_left, R.id.title_right};
 			setClickListener(ids, this);
 		}
+	}
+	
+	protected DililyDatabaseHelper getDatabase() {
+		return DililyDatabaseHelper.get(getBaseContext());
+	}
+	
+	protected String getConfiguration(String key) {
+		return getDatabase().getConfiguation(key);
+	}
+	
+	protected void setConfiguration(String key, String value) {
+		getDatabase().setConfiguration(key, value);
 	}
 	
 	protected void startActivity(Class<? extends Activity> clz) {

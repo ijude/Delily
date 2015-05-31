@@ -62,9 +62,9 @@ public class MessageListAdapter extends BaseAdapter {
 		unreadView.setVisibility(msg.unread ? View.VISIBLE : View.GONE);
 		
 		SpannableStringBuilder builder = new SpannableStringBuilder();
-		builder.append(msg.user + " " + msg.msg);
+		builder.append(msg.fromUser + " " + msg.msg);
 		ForegroundColorSpan span = new ForegroundColorSpan(0xCC0000CC);
-		builder.setSpan(span, 0, msg.user.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+		builder.setSpan(span, 0, msg.fromUser.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
 		msgView.setText(builder);
 		return convertView;
 	}

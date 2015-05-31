@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,57 +19,96 @@ import android.widget.TextView;
 
 import com.sh.dilily.R;
 import com.sh.dilily.data.Message;
-import com.sh.dilyly.util.DililyHandler;
+import com.sh.dilily.handler.DililyHandler;
 import com.sh.dilyly.util.Utils;
 
 public class ChatActivity extends DililyActivity implements
 		View.OnClickListener, View.OnKeyListener {
 	private static final int MESSAGE_SCROLL_BOTTOM = 1;
+	
+	private ChatHandler handler;
+	private MessageReceiver receiver;
+	
 	private List<Message> messages;
 	private ScrollView scrollView;
 	private EditText editText;
 	private String me = "me";
 //	private String you = "you";
 	private int textMaxWidth = -1;
-	private static DililyHandler handler;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.chat_activity);
-		setTitle(null, "某某人", "返回", null);
-		scrollView = (ScrollView)findViewById(R.id.scrollview);
-		editText = (EditText)findViewById(R.id.edittext);
+		
+		initInterfaces();
+		initService();
+		registerReceiver();
 		initHandler();
-		
-		getMessages();
-		initScrollView();
-		setClickListener(new int[]{R.id.send_message}, this);
-		editText.setOnKeyListener(this);
-		
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
-		handler.sendEmptyMessageDelayed(MESSAGE_SCROLL_BOTTOM, 50);
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if (receiver != null)
+			unregisterReceiver(receiver);
+		if (handler != null) {
+			handler.release();
+			handler = null;
+		}
+//		stopService(new Intent(this, NetworkService.class));
+	}
+	
+	private void initInterfaces() {
+		setTitle(null, "某某人", "返回", null);
+		scrollView = (ScrollView)findViewById(R.id.scrollview);
+		editText = (EditText)findViewById(R.id.edittext);
+		loadMessages();
+		initScrollView();
+		setClickListener(new int[]{R.id.send_message}, this);
+		editText.setOnKeyListener(this);
+	}
+	
+	private void initService() {
+//		startService(new Intent(this, NetworkService.class));
 	}
 	
 	private void initHandler() {
-		ChatActivity.handler = new DililyHandler(this) {
+		handler = new ChatHandler(this) {
 			@Override
-			public void handleMessage(android.os.Message msg) {
-				switch (msg.what) {
+			public boolean handleMessage(ChatActivity activity, int what) {
+				switch (what) {
 				case MESSAGE_SCROLL_BOTTOM:
-					if (scrollView != null)
-						scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+					activity.scrollBottom();
 					break;
+				default:
+					return false;
 				}
+				return true;
 			}
 		};
+		handler.sendEmptyMessageDelayed(MESSAGE_SCROLL_BOTTOM, 50);
 	}
 	
-	private List<Message> getMessages() {
+	private void scrollBottom() {
+		if (scrollView != null)
+			scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+	}
+	
+	private void registerReceiver() {
+		MessageReceiver receiver = new MessageReceiver();  
+        IntentFilter intentFilter = new IntentFilter();  
+        intentFilter.addAction("com.sh.dilily.message.RECEIVER");  
+        registerReceiver(receiver, intentFilter);
+        unregisterReceiver(receiver);
+	}
+	
+	private List<Message> loadMessages() {
 		if (this.messages != null)
 			return this.messages;
 		List<Message> messages = new ArrayList<Message>();
@@ -83,7 +125,7 @@ public class ChatActivity extends DililyActivity implements
 			Message msg = new Message();
 			msg.id = i + 254;
 			msg.time = "2015-05-" + (i+1);
-			msg.user = Math.random() * 10 > 5 ? "me" : "you";
+			msg.fromUser = Math.random() * 10 > 5 ? "me" : "you";
 			msg.msg = Utils.random(msgs);
 			messages.add(msg);
 		}
@@ -106,7 +148,7 @@ public class ChatActivity extends DililyActivity implements
 		if (container == null)
 			container = (ViewGroup)scrollView.getChildAt(0);
 		//TODO show time
-		int layout = this.me.equals(msg.user) ? R.layout.message_content_left : R.layout.message_content_right;
+		int layout = this.me.equals(msg.fromUser) ? R.layout.message_content_left : R.layout.message_content_right;
 		ViewGroup view = (ViewGroup)View.inflate(getBaseContext(), layout, null);
 		TextView tv = (TextView)view.findViewById(R.id.message_content);
 		if (textMaxWidth > 0)
@@ -127,7 +169,7 @@ public class ChatActivity extends DililyActivity implements
 		if (msg == null || msg.length() == 0)
 			return;
 		Message message = new Message();
-		message.user = me;
+		message.fromUser = me;
 		message.time = new Date().toString();
 		message.msg = msg;
 		appendMessage(null, message, true);
@@ -156,4 +198,31 @@ public class ChatActivity extends DililyActivity implements
 		return false;
 	}
 	
+	public class MessageReceiver extends BroadcastReceiver {  
+        @Override  
+        public void onReceive(Context context, Intent intent) {  
+//        	int progress = intent.getIntExtra("progress", 0);  
+//			mProgressBar.setProgress(progress);  
+        }  
+          
+    }
+	
+	private static class ChatHandler extends DililyHandler<ChatActivity> {
+
+		public ChatHandler(ChatActivity activity) {
+			super(activity);
+		}
+		@Override
+		public boolean handleMessage(ChatActivity activity, int what) {
+			switch (what) {
+			case MESSAGE_SCROLL_BOTTOM:
+				activity.scrollBottom();
+				break;
+			default:
+				break;
+			}
+			return false;
+		}
+		
+	}
 }
