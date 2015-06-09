@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#615f6f"
+    android:orientation="horizontal">
+
+    <EditText
+        android:id="@+id/keyword_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:background="@drawable/search_edit_bg"
+        android:hint="@string/search_hint"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:paddingTop="5dp"
+        android:paddingLeft="25dp"
+        android:paddingBottom="5dp"
+        android:paddingRight="5dp"
+        android:singleLine="true"
+        android:textColorHint="@android:color/secondary_text_dark"
+        android:textSize="14sp" >
+    </EditText>
+   <ImageView
+       android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:scaleType="fitXY"
+        android:layout_gravity="center_vertical"
+         android:layout_marginLeft="5dp"
+        android:src="@drawable/vertical_line"
+       />
+    <Button
+        android:id="@+id/search_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:textSize="14sp"
+        android:text="搜索"
+      
+        android:textColor="@drawable/clickable_black"
+        android:layout_toRightOf="@+id/keyword_edit"
+        android:background="@android:color/transparent" />
+
+</LinearLayout>
