@@ -88,9 +88,9 @@ public class TeacherInfoFragment extends PersonInfoFragment {
 				teacher.region = value;
 				changed = true;
 			}
-		} else if (PersonAttributes.KEY_EXPERIENCE.equals(title)) {
-			if (!Utils.equals(teacher.experience, value)) {
-				teacher.experience = value;
+		} else if (PersonAttributes.KEY_EXPERIENCES.equals(title)) {
+			if (!Utils.equals(teacher.experiences, value)) {
+				teacher.experiences = value;
 				changed = true;
 			}
 		} else if (PersonAttributes.KEY_DESC.equals(title)) {
@@ -127,8 +127,8 @@ public class TeacherInfoFragment extends PersonInfoFragment {
 		} else if (PersonAttributes.KEY_REGION.equals(attr)) {
 			String[] areas = getResources().getStringArray(R.array.shanghai_regions);
 			editSelect(PersonAttributes.KEY_REGION, teacher.region, areas);
-		} else if (PersonAttributes.KEY_EXPERIENCE.equals(attr)) {
-			editTextarea(PersonAttributes.KEY_EXPERIENCE, teacher.experience);
+		} else if (PersonAttributes.KEY_EXPERIENCES.equals(attr)) {
+			editTextarea(PersonAttributes.KEY_EXPERIENCES, teacher.experiences);
 		} else if (PersonAttributes.KEY_DESC.equals(attr)) {
 			editTextarea(PersonAttributes.KEY_DESC, teacher.desc);
 		}

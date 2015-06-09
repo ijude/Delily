@@ -48,7 +48,7 @@ public class StudentInfoFragment extends PersonInfoFragment {
 			lv = (ListView) findViewById(R.id.teacher_info_list);
 		else
 			lv = (ListView) view.findViewById(R.id.teacher_info_list);
-		adapter = new StudentInfoAdapter(getContext(), getStudent(), StudentInfoAdapter.VIEWPORT_TEACHER);
+		adapter = new StudentInfoAdapter(getContext(), getStudent(), StudentInfoAdapter.VIEWPORT_STUDENT);
 		lv.setAdapter(adapter);
 		lv.setOnItemClickListener(this);
 	}
@@ -56,22 +56,28 @@ public class StudentInfoFragment extends PersonInfoFragment {
 	protected void setField(CharSequence title, String value) {
 //		Utils.toast(getContext(), title + "=" + value);
 		boolean changed = false;
-		if ("名字".equals(title)) {
-			if (!Utils.equals(student.name, value)) {
+		if (PersonAttributes.KEY_NAME.equals(title)) {
+			if (!Utils.isEmpty(value) && !Utils.equals(student.name, value)) {
 				student.name = value;
 				changed = true;
 			}
-		} else if ("性别".equals(title)) {
+		} else if (PersonAttributes.KEY_GENDER.equals(title)) {
 			if (!Utils.equals(student.gender, value)) {
 				student.gender = value;
 				changed = true;
 			}
-		} else if ("所在区域".equals(title)) {
+		} else if (PersonAttributes.KEY_AGE.equals(title)) {
+			int age = Utils.toInteger(value);
+			if (age > 0 && age < 20 && student.age != age) {
+				student.age = age;
+				changed = true;
+			}
+		} else if (PersonAttributes.KEY_REGION.equals(title)) {
 			if (!Utils.equals(student.region, value)) {
 				student.region = value;
 				changed = true;
 			}
-		} else if ("个人描述".equals(title)) {
+		} else if (PersonAttributes.KEY_DESC.equals(title)) {
 			if (!Utils.equals(student.desc, value)) {
 				student.desc = value;
 				changed = true;

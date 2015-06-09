@@ -101,7 +101,7 @@ public class MainActivity extends FrameActivity implements View.OnClickListener 
 	};
 
 	public void initStudentMain() {
-		setContentView(R.layout.student_activity);
+		setContentView(R.layout.activity_student);
 		TextView t1 = new TextView(this);
 		t1.setText("main");
 		addFrame(StudentMainFragment.class, t1);

@@ -14,7 +14,7 @@ public class TeacherActivity extends FrameActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.teacher_activity);
+		setContentView(R.layout.activity_teacher);
 		
 		addFrame(TeacherInfoFragment.class, getIcon(R.string.home, R.drawable.icon_home));
 		addFrame(TeacherMessageFragment.class, getIcon(R.string.message, R.drawable.icon_message));

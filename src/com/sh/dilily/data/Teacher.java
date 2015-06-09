@@ -11,7 +11,7 @@ public class Teacher extends People {
 	/** 评分 */
 	public int rate;
 	/** 个人经历 */
-	public String experience;
+	public String experiences;
 	
 	public Teacher() {
 		type = TYPE_TEACHER;

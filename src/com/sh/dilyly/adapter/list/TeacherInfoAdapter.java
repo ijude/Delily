@@ -69,9 +69,9 @@ public class TeacherInfoAdapter extends BaseAdapter {
 			addItem(PersonAttributes.KEY_REGION, teacher.region, true);
 			addItem(PersonAttributes.KEY_ADDRESS, teacher.address, true);
 			addDivider();
-			addItem(PersonAttributes.KEY_EXPERIENCE, "", true);
-			if (teacher.experience != null && teacher.experience.length() > 0) {
-				addItem(teacher.experience, "");
+			addItem(PersonAttributes.KEY_EXPERIENCES, "", true);
+			if (teacher.experiences != null && teacher.experiences.length() > 0) {
+				addItem(teacher.experiences, "");
 			}
 			addDivider();
 			addItem(PersonAttributes.KEY_DESC, "", true);
@@ -85,10 +85,10 @@ public class TeacherInfoAdapter extends BaseAdapter {
 			addItem(PersonAttributes.KEY_REGION, teacher.region);
 			addItem(PersonAttributes.KEY_MODE, teacher.mode);
 			//TODO 经历
-			if (teacher.experience != null && teacher.experience.length() > 0) {
+			if (teacher.experiences != null && teacher.experiences.length() > 0) {
 				addDivider();
-				addItem(PersonAttributes.KEY_EXPERIENCE, "", true);
-				addItem(teacher.experience, "");
+				addItem(PersonAttributes.KEY_EXPERIENCES, "", true);
+				addItem(teacher.experiences, "");
 				
 //				addItem("2005年-2012年", "上海音乐学院");
 //				addItem("2012年-2014年", "美国茱丽亚音乐学院");

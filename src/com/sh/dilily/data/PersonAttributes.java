@@ -17,7 +17,7 @@ public final class PersonAttributes {
 	public static final String KEY_MODE = "授课模式";
 	public static final String KEY_PRICE = "授课价格";
 	public static final String KEY_RATE = "评分";
-	public static final String KEY_EXPERIENCE = "个人经历";
+	public static final String KEY_EXPERIENCES = "个人经历";
 	
 	
 	//学生属性

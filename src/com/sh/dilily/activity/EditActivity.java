@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.sh.dilily.R;
 import com.sh.dilyly.adapter.list.SimpleSelectedAdapter;
@@ -31,6 +32,7 @@ public class EditActivity extends DelilyActivity implements
 	public static final String KEY_ERROR_TIP = "tip";
 	public static final String KEY_RESULT = "result";
 	public static final String KEY_EMPTY = "empty";
+	public static final String KEY_DESC = "desc";
 	
 	public static final int SUCCESS_CODE = 1;
 	
@@ -44,18 +46,18 @@ public class EditActivity extends DelilyActivity implements
 		CharSequence title = intent.getCharSequenceExtra(KEY_TITLE);
 		CharSequence value = intent.getCharSequenceExtra(KEY_DEFAULT);
 		if (type == EDIT_TYPE_TEXT || type == EDIT_TYPE_TEXT_NON_EMPTY) {
-			setContentView(R.layout.edit_activity_text);
+			setContentView(R.layout.activity_edit_text);
 			EditText edit = (EditText)findViewById(R.id.edittext);
 			edit.setOnKeyListener(this);
 			edit.setText(value);
 		} else if (type == EDIT_TYPE_INT || type == EDIT_TYPE_INT_NON_EMPTY) {
-			setContentView(R.layout.edit_activity_text);
+			setContentView(R.layout.activity_edit_text);
 			EditText edit = (EditText)findViewById(R.id.edittext);
 			edit.setInputType(EDIT_TYPE_INT);
 			edit.setOnKeyListener(this);
 			edit.setText(value);
 		} else if (type == EDIT_TYPE_SELECT) {
-			setContentView(R.layout.edit_activity_select);
+			setContentView(R.layout.activity_edit_select);
 			String[] options = intent.getStringArrayExtra(KEY_OPTIONS);
 			ListView list = (ListView)findViewById(R.id.listview);
 			list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -76,7 +78,7 @@ public class EditActivity extends DelilyActivity implements
 				}
 			}
 		} else if (type == EDIT_TYPE_TEXTAREA) {
-			setContentView(R.layout.edit_activity_text);
+			setContentView(R.layout.activity_edit_text);
 			EditText edit = (EditText)findViewById(R.id.edittext);
 			edit.setSingleLine(false);
 			edit.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE | InputType.TYPE_CLASS_TEXT);
@@ -86,10 +88,17 @@ public class EditActivity extends DelilyActivity implements
 		} else {
 			throw new RuntimeException("invalid edit type");
 		}
-		if (type == EDIT_TYPE_SELECT)
+		if (type == EDIT_TYPE_SELECT) {
 			setTitle(null, title, "取消", null);
-		else
+		} else {
 			setTitle(null, title, "取消", "保存");
+		}
+		String desc = intent.getStringExtra(KEY_DESC);
+		if (desc != null && desc.length() > 0) {
+			TextView tv = (TextView)findViewById(R.id.textview);
+			if (tv != null)
+				tv.setText(desc);
+		}
 		int[] ids = {R.id.title_left, R.id.title_right};
 		setClickListener(ids, this);
 		setResult(0);
