@@ -44,7 +44,7 @@ public class NetworkService extends IntentService {
 	protected void onHandleIntent(Intent intent) {
 		Log.i(NS, "handlerIntent");
 		String result = null;
-		DililyNetworkHelper net = DililyNetworkHelper.get(getBaseContext());
+		DililyNetworkHelper net = DililyNetworkHelper.get(getApplicationContext());
 		String url = intent.getStringExtra(KEY_URL);
 		if (url != null) {
 			result = net.doGet(url);

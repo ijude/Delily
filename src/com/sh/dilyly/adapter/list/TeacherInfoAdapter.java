@@ -16,6 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sh.dilily.R;
+import com.sh.dilily.data.AttributeItem;
+import com.sh.dilily.data.PersonAttributes;
 import com.sh.dilily.data.Teacher;
 
 /**
@@ -25,13 +27,14 @@ public class TeacherInfoAdapter extends BaseAdapter {
 	
 	public static final int VIEWPORT_TEACHER = 1;
 	public static final int VIEWPORT_STUDENT = 2;
+	
 	private Context context;
 	private Teacher teacher;
 	private int viewport;
 	private boolean showBanner = true;
 	private CharSequence buttonText;
 	private View.OnClickListener buttonListener;
-	private ArrayList<Item> items;
+	private ArrayList<AttributeItem> items;
 
 	/**
 	 * @param viewport 视角, 老师看到的和学生看到的显示不同的内容
@@ -55,32 +58,44 @@ public class TeacherInfoAdapter extends BaseAdapter {
 	}
 	
 	private void initItems(Teacher teacher, int viewport) {
-		this.items = new ArrayList<Item>();
+		this.items = new ArrayList<AttributeItem>();
 		if (viewport == VIEWPORT_TEACHER) {
-			addItem("姓名", teacher.name, true);
-			addItem("性别", teacher.gender, true);
-			addItem("专业", teacher.major, true);
+			addItem(PersonAttributes.KEY_NAME, teacher.name, true);
+			addItem(PersonAttributes.KEY_GENDER, teacher.gender, true);
+			addItem(PersonAttributes.KEY_MAJOR, teacher.major, true);
 			addDivider();
-			addItem("授课费用", teacher.price + "元/小时", true);
-			addItem("授课方式", teacher.mode + "", true);
-			addItem("授课区域", teacher.region, true);
+			addItem(PersonAttributes.KEY_PRICE, teacher.price + "元/小时", true);
+			addItem(PersonAttributes.KEY_MODE, teacher.mode, true);
+			addItem(PersonAttributes.KEY_REGION, teacher.region, true);
+			addItem(PersonAttributes.KEY_ADDRESS, teacher.address, true);
 			addDivider();
-			addItem("个人经历", "", true);
+			addItem(PersonAttributes.KEY_EXPERIENCE, "", true);
+			if (teacher.experience != null && teacher.experience.length() > 0) {
+				addItem(teacher.experience, "");
+			}
 			addDivider();
-			addItem("个人描述", "", true);
+			addItem(PersonAttributes.KEY_DESC, "", true);
+			if (teacher.desc != null && teacher.desc.length() > 0) {
+				addItem(teacher.desc, "");
+			}
 		} else {
-			addItem("他的动态", "", true);
-			addItem("课时费", teacher.price + "元/小时");
-			addItem("专业", teacher.major);
-			addItem("授课区域", teacher.region);
-			addItem("授课方式", teacher.mode);
-			addDivider();
+//			addItem("他的动态", "", true);
+			addItem(PersonAttributes.KEY_PRICE, teacher.price + "元/小时");
+			addItem(PersonAttributes.KEY_MAJOR, teacher.major);
+			addItem(PersonAttributes.KEY_REGION, teacher.region);
+			addItem(PersonAttributes.KEY_MODE, teacher.mode);
 			//TODO 经历
-			addItem("2005年-2012年", "上海音乐学院");
-			addItem("2012年-2014年", "美国茱丽亚音乐学院");
+			if (teacher.experience != null && teacher.experience.length() > 0) {
+				addDivider();
+				addItem(PersonAttributes.KEY_EXPERIENCE, "", true);
+				addItem(teacher.experience, "");
+				
+//				addItem("2005年-2012年", "上海音乐学院");
+//				addItem("2012年-2014年", "美国茱丽亚音乐学院");
+			}
 			if (teacher.desc != null && teacher.desc.length() > 0) {
 				addDivider();
-				addItem("个人描述", "");
+				addItem(PersonAttributes.KEY_DESC, "");
 				addItem(teacher.desc, "");
 			}
 		}
@@ -90,11 +105,11 @@ public class TeacherInfoAdapter extends BaseAdapter {
 		addItem(label, value, false);
 	}
 	private void addItem(CharSequence label, CharSequence value, boolean editable) {
-		items.add(new Item(label, value, editable));
+		items.add(new AttributeItem(label, value, editable));
 	}
 	
 	private void addDivider() {
-		items.add(new Item());
+		items.add(new AttributeItem());
 	}
 
 	@Override
@@ -108,7 +123,7 @@ public class TeacherInfoAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Item getItem(int position) {
+	public AttributeItem getItem(int position) {
 		if (position <= 0 && showBanner)
 			return null;
 		if (position <= items.size())
@@ -136,14 +151,14 @@ public class TeacherInfoAdapter extends BaseAdapter {
 */
 		return view;
 	}
-	
-	private View getDivider() {
+
+	protected View getDivider() {
 		return View.inflate(context, R.layout.divider, null);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Item item = getItem(position);
+		AttributeItem item = getItem(position);
 		if (item == null) {
 			if (position == 0 && showBanner) {
 				return getBanner(parent, convertView);
@@ -181,121 +196,5 @@ public class TeacherInfoAdapter extends BaseAdapter {
 			t2.setText(item.value);
 		}
 		return view;
-	}
-/*
-	private View getViewForTeacher(Teacher teacher, int position, View convertView) {
-		if (position == 4 || position == 8 || position == 10)
-			return getDivider();
-		ViewGroup view = null;
-		if (position == 12) {
-			view = (ViewGroup)View.inflate(context, R.layout.teacher_info_button, null);
-			Button button = (Button)view.getChildAt(0);
-			button.setText("退出登录");
-			return view;
-		}
-		if (convertView == null || !(convertView instanceof RelativeLayout)) {
-			view = (ViewGroup)View.inflate(context, R.layout.teacher_info_listitem, null);
-		} else {
-			view = (ViewGroup)convertView;
-		}
-		TextView t1 = (TextView)view.getChildAt(0);
-		TextView t2 = (TextView)view.getChildAt(1);
-		switch(position) {
-		case 1:
-			t1.setText("姓名");
-			t2.setText(String.valueOf(teacher.name));
-			break;
-		case 2:
-			t1.setText("性别");
-			if (teacher.gender != null)
-				t2.setText(teacher.gender);
-			break;
-		case 3:
-			t1.setText("专业");
-			if (teacher.major != null)
-				t2.setText(teacher.major);
-			break;
-		case 5:
-			t1.setText("授权费用");
-			if (teacher.price > 0)
-				t2.setText(teacher.price + "元/小时");
-			break;
-		case 6:
-			t1.setText("授课方式");
-			if (teacher.mode != null)
-				t2.setText(teacher.mode);
-			break;
-		case 7:
-			t1.setText("授课区域");
-			if (teacher.region != null)
-				t2.setText(teacher.region);
-			break;
-		case 9:
-			t1.setText("个人经历");
-			break;
-		case 11:
-			t1.setText("个人描述");
-			break;
-		}
-		return view;
-	}
-
-	private View getViewForStudent(Teacher teacher, int position, View convertView) {
-		ViewGroup view = null;
-		if (position == 6) {
-			view = (ViewGroup)View.inflate(context, R.layout.teacher_info_button, null);
-			Button button = (Button)view.getChildAt(0);
-			button.setText("预约课程");
-			return view;
-		}
-		if (convertView == null || !(convertView instanceof RelativeLayout)) {
-			view = (ViewGroup)View.inflate(context, R.layout.teacher_info_listitem, null);
-		} else {
-			view = (ViewGroup)convertView;
-		}
-		TextView t1 = (TextView)view.getChildAt(0);
-		TextView t2 = (TextView)view.getChildAt(1);
-		switch(position) {
-		case 1:
-			t1.setText("课时费");
-			if (teacher.price > 0)
-				t2.setText(String.valueOf(teacher.price));
-			break;
-		case 2:
-			t1.setText("专业");
-			if (teacher.major != null)
-				t2.setText(teacher.major);
-			break;
-		case 3:
-			t1.setText("授课区域");
-			if (teacher.region != null)
-				t2.setText(teacher.region);
-			break;
-		case 4:
-			t1.setText("授课方式");
-			if (teacher.mode != null)
-				t2.setText(teacher.mode);
-			break;
-		case 5:
-			t1.setText("课时设置");
-			t2.setText(">");
-			break;
-		}
-		return view;
-	}
-*/
-	private static class Item {
-		public CharSequence label;
-		public CharSequence value;
-		public boolean editable;
-		public boolean divider;
-		public Item() {
-			divider = true;
-		}
-		public Item(CharSequence label, CharSequence value, boolean editable) {
-			this.label = label;
-			this.value = value;
-			this.editable = editable;
-		}
 	}
 }

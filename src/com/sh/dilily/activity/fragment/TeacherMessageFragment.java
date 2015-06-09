@@ -21,10 +21,6 @@ public class TeacherMessageFragment extends MessageFragment {
 	private List<Message> msgs;
 	
 	@Override
-	public void fillData() {
-	}
-	
-	@Override
 	public View onCreateView(LayoutInflater inflater) {
 		View view = View.inflate(getContext(), R.layout.teacher_message, null);
 		setTitle(view, null, null, null);

@@ -33,7 +33,8 @@
         <activity android:name=".activity.TeacherInfoActivity"></activity>
         <activity android:name=".activity.EditActivity"></activity>
         <activity android:name=".activity.ChatActivity"></activity>
-        
+        <activity android:name=".activity.SearchActivity"></activity>
+        <activity android:name=".activity.WebviewActivity"></activity>
         <service android:name=".service.MesageService">
             <intent-filter>
                 <action android:name="com.sh.dilily.action.CHAT" />

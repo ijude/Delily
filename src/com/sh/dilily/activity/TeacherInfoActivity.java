@@ -10,7 +10,7 @@ import com.sh.dilyly.adapter.list.TeacherInfoAdapter;
 /**
  * 老师资料界面, 学生看到的
  * */
-public class TeacherInfoActivity extends DililyActivity {
+public class TeacherInfoActivity extends DelilyActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

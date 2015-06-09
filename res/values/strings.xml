@@ -2,13 +2,19 @@
 
 <resources>
     <string name="app_name">滴哩哩</string>
-    <string name="i_am_teacher">我是老师</string>
-    <string name="i_am_student">我是学生</string>
+    
+	<string name="i_am_teacher">我是老师</string>
+	<string name="i_am_student">我是学生</string>
+	
     <string name="home">首页</string>
     <string name="message">消息</string>
+    <string name="me">我</string>
+    
     <string name="back">返回</string>
     <string name="send">发送</string>
+    <string name="empty"></string>
     <string name="loading">加载中</string>
     
     <string name="all_regions">所有地区</string>
+    <string name="search_hint">搜索：钢琴，普陀……</string>
 </resources>

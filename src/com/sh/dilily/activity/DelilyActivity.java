@@ -15,11 +15,11 @@ import com.sh.dilily.service.NetworkService;
 /**
  * 标准的嘀哩哩Activity
  * */
-public class DililyActivity extends BaseActivity implements View.OnClickListener {
+public class DelilyActivity extends BaseActivity implements View.OnClickListener {
 	
 	private NetworkReceiver networkReceiver;
 	
-	public DililyActivity() {
+	public DelilyActivity() {
 	}
 
 	@Override

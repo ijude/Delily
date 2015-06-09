@@ -20,7 +20,7 @@ import com.sh.dilyly.util.Utils;
  * 欢迎/加载
  * 判断是否登录, 打开不同的界面
  * */
-public class WelcomeActivity extends DililyActivity {
+public class WelcomeActivity extends DelilyActivity {
 	
 	private static final int MSG_DISPATCH = 1;
 	private static final int MSG_CHECK_DATA = 2;

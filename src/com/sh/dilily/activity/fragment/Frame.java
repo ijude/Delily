@@ -11,11 +11,10 @@ import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.sh.dilily.activity.BaseActivity;
-import com.sh.dilily.activity.DililyActivity;
+import com.sh.dilily.activity.DelilyActivity;
 
 public abstract class Frame {
-	protected BaseActivity mActivity;
+	protected DelilyActivity mActivity;
 	private View contentView;
 	protected boolean isResume;
 
@@ -28,7 +27,7 @@ public abstract class Frame {
 		}
 	}
 
-	public void setActivity(BaseActivity act) {
+	public void setActivity(DelilyActivity act) {
 		this.mActivity = act;
 	}
 
@@ -43,7 +42,7 @@ public abstract class Frame {
 	/**
 	 * Return the Activity this frame is currently associated with.
 	 */
-	public final BaseActivity getActivity() {
+	public final DelilyActivity getActivity() {
 		return mActivity;
 	}
 	
@@ -56,7 +55,6 @@ public abstract class Frame {
 	}
 
 	// 系统方法
-
 	public void onCreate() {
 	}
 
@@ -79,8 +77,6 @@ public abstract class Frame {
 	public void onConfigurationChanged(Configuration newConfig) {
 
 	}
-
-	public abstract void fillData();
 
 	public Resources getResources() {
 		return mActivity.getResources();
@@ -123,7 +119,7 @@ public abstract class Frame {
 	}
 
 	protected void setTitle(View parent, CharSequence title, CharSequence leftButtonText, CharSequence rightButtonText) {
-		if (mActivity instanceof DililyActivity)
-			((DililyActivity)mActivity).setTitle(parent, title, leftButtonText, rightButtonText);
+		if (mActivity instanceof DelilyActivity)
+			((DelilyActivity)mActivity).setTitle(parent, title, leftButtonText, rightButtonText);
 	}
 }

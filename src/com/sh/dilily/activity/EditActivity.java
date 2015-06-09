@@ -14,7 +14,7 @@ import com.sh.dilily.R;
 import com.sh.dilyly.adapter.list.SimpleSelectedAdapter;
 import com.sh.dilyly.util.Utils;
 
-public class EditActivity extends DililyActivity implements
+public class EditActivity extends DelilyActivity implements
 		AdapterView.OnItemClickListener, View.OnClickListener, View.OnKeyListener {
 	public static final int EDIT_TYPE_TEXT = 1;
 	public static final int EDIT_TYPE_TEXT_NON_EMPTY = 2;

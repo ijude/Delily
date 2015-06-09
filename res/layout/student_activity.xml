@@ -14,14 +14,7 @@
             android:id="@android:id/tabcontent"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" 
-            android:paddingBottom="60dp">
-<!-- 
-            <Button android:layout_width="0dp"
-	            android:layout_height="match_parent"
-	 			android:layout_weight="1"
-	            android:id="@+id/s_main_order_region"
-	            android:text="所有地区"/>
- -->
+            >
         </FrameLayout>
 
 

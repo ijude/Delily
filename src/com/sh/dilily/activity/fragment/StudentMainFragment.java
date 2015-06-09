@@ -2,6 +2,9 @@ package com.sh.dilily.activity.fragment;
 
 import java.util.ArrayList;
 
+import org.taptwo.android.widget.AutoViewFlow;
+import org.taptwo.android.widget.CircleFlowIndicator;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,41 +13,46 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.sh.dilily.R;
 import com.sh.dilily.activity.TeacherInfoActivity;
 import com.sh.dilily.data.Teacher;
+import com.sh.dilyly.adapter.list.BannerAdapter;
 import com.sh.dilyly.adapter.list.TeacherListAdaper;
 
 public class StudentMainFragment extends Frame implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
+	
+	private AutoViewFlow viewFlow;
+	
 	private int regionSelection = -1;
 	private int genderSelection = -1;
 	private int sortSelection = -1;
 
 	public View onCreateView(LayoutInflater inflater) {
 		View view = View.inflate(getContext(), R.layout.student_main, null);
-		initSpinners(view);
+		initBanners(view);
+//		initSpinners(view);
 		initListView(view);
 		return view;
 	}
 	
+	private void initBanners(View view) {
+		viewFlow = (AutoViewFlow) view.findViewById(R.id.viewflow);
+		BannerAdapter adapter = new BannerAdapter(getActivity());
+		viewFlow.setAdapter(adapter);
+//		viewFlow.setOnItemClickListener(adapter);
+//		viewFlow.setSelection(adapter.getActualCount() * 100 - 1);
+		CircleFlowIndicator indic = (CircleFlowIndicator) view.findViewById(R.id.viewflowindic);
+		viewFlow.setFlowIndicator(indic);
+		viewFlow.startPlay();
+	}
+	
 	private void initSpinners(View view) {
-		//TODO 区域需要根据定位, 动态读取
 		Spinner regionSpinner = (Spinner)view.findViewById(R.id.regions);
 		ArrayAdapter<CharSequence> regionAdapter = ArrayAdapter.createFromResource(getContext(), R.array.shanghai_regions, android.R.layout.simple_spinner_item);
 		regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		regionSpinner.setAdapter(regionAdapter);
 		regionSpinner.setOnItemSelectedListener(this);
-/*
-		ArrayList<String> regions = new ArrayList<String>();
-		regions.add(getResources().getString(R.string.all_regions));
-		regions.add("上海");
-		regions.add("北京");
-		ArrayAdapter<CharSequence> regionAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, regions.toArray(new String[regions.size()]));
-		regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		regionSpinner.setAdapter(regionAdapter);
-*/
 		
 		Spinner genderSpinner = (Spinner)view.findViewById(R.id.teacher_genders);
 		ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(getContext(), R.array.teacher_genders, android.R.layout.simple_spinner_item);
@@ -68,7 +76,7 @@ public class StudentMainFragment extends Frame implements AdapterView.OnItemClic
 			lv = (ListView) view.findViewById(R.id.student_teachers_list);
 		TeacherListAdaper sla = new TeacherListAdaper(getActivity());
 		ArrayList<Teacher> data = new ArrayList<Teacher>();
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 8; i++) {
 			Teacher item = new Teacher();
 			item.name = "Lily" + (i + 1);
 			item.major = "piano";
@@ -81,11 +89,6 @@ public class StudentMainFragment extends Frame implements AdapterView.OnItemClic
 		lv.setAdapter(sla);
 		sla.setData(data);
 		lv.setOnItemClickListener(this);
-	}
-
-	@Override
-	public void fillData() {
-
 	}
 
 	@Override
@@ -118,5 +121,25 @@ public class StudentMainFragment extends Frame implements AdapterView.OnItemClic
 	public void onNothingSelected(AdapterView<?> parent) {
 		
 	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		if (viewFlow != null)
+			viewFlow.onPause();
+	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (viewFlow != null)
+			viewFlow.onResume();
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		if (viewFlow != null)
+			viewFlow.onDestroy();
+	}
 }

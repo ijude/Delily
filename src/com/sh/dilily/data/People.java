@@ -18,10 +18,13 @@ public class People {
 	public String phone;
 	/** 所在区域  */
 	public String region;
+	/** 上课地址 */
+	public String address;
 	/** 位置 */
 	double latitude;		//纬度
 	double longitude;		//经度
 	/** 距离 - 计算 */
 	public int distance;
-
+	/** 老师特点, 或签名 */
+	public String desc;
 }

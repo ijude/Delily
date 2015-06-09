@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.sh.dilily.R;
 
-public class LoginActivity extends DililyActivity implements View.OnClickListener {
+public class LoginActivity extends DelilyActivity implements View.OnClickListener {
 	public static final int RESULT_USER_UNREGISTERED = 0;
 	public static final int RESULT_USER_REGISTERED = 1111;
 	

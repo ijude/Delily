@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.sh.dilily"
+    android:layout_width="fill_parent"
+    android:layout_height="150dp"
+    >
+
+    <org.taptwo.android.widget.AutoViewFlow
+        android:id="@+id/viewflow"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:sidebuffer="3" >
+    </org.taptwo.android.widget.AutoViewFlow>
+
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="5dp"
+        >
+
+        <org.taptwo.android.widget.CircleFlowIndicator
+            android:id="@+id/viewflowindic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:padding="10dip" >
+        </org.taptwo.android.widget.CircleFlowIndicator>
+    </LinearLayout>
+
+</FrameLayout>
+
+<!-- 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="110dp"
@@ -16,3 +51,4 @@
         android:src="@drawable/avatar"
         />
 </LinearLayout>
+ -->

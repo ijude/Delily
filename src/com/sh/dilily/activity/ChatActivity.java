@@ -22,7 +22,7 @@ import com.sh.dilily.data.Message;
 import com.sh.dilily.handler.DililyHandler;
 import com.sh.dilyly.util.Utils;
 
-public class ChatActivity extends DililyActivity implements
+public class ChatActivity extends DelilyActivity implements
 		View.OnClickListener, View.OnKeyListener {
 	private static final int MESSAGE_SCROLL_BOTTOM = 1;
 	

@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/s_main_root"
+<ScrollView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
     android:background="#ffffff"
     >
-<!-- 
-	<include layout="@layout/title_bar"/>
- -->
+<LinearLayout
+    android:id="@+id/s_main_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" 
+    >
+    
 	<include layout="@layout/student_banner"/>
-	
+	<include layout="@layout/search_bar"/>"
+<!-- 
     <LinearLayout
         android:id="@+id/s_main_order"
         android:layout_width="match_parent"
@@ -32,11 +36,12 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content" />
     </LinearLayout>
-
-    <ListView
+ -->
+ 
+    <com.sh.dilily.widget.NoScrollListView
         android:id="@+id/student_teachers_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#ffffff"
         android:fadingEdge="vertical"
         android:fastScrollEnabled="false"
@@ -44,6 +49,8 @@
         android:showDividers="middle"
         android:smoothScrollbar="true"
         android:cacheColorHint="#ffffff"
+        android:scrollbars="none"
          />
 
 </LinearLayout>
+</ScrollView>

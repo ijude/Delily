@@ -46,6 +46,7 @@ public abstract class NetworkReceiver extends BroadcastReceiver {
 			Object o = result.get(keys[i]);
 			if (!(o instanceof Map))
 				return (T)o;
+			result = (Map)o;
 		}
 		return (T)result;
 	}

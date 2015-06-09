@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabContentFactory;
 import android.widget.TabHost.TabSpec;
@@ -17,11 +16,12 @@ import com.sh.dilily.activity.fragment.Frame;
 import com.sh.dilily.widget.QQTabHost;
 import com.sh.dilily.widget.QQTabHost.OnTabSelectionListener;
 
-public class FrameActivity extends DililyActivity implements TabContentFactory,
+public class FrameActivity extends DelilyActivity implements TabContentFactory,
 		OnTabChangeListener {
-	protected TabHost mTabHost;
+	protected QQTabHost mTabHost;
 	private final Map<String, Frame> mFrames = new HashMap<String, Frame>(2);
 	private Frame preFrame;
+	private int tabCount = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,9 @@ public class FrameActivity extends DililyActivity implements TabContentFactory,
 		super.onResume();
 		if (getCurrentFrame() != null) {
 			getCurrentFrame().onResume();
+		}
+		if (tabCount == 1) {
+			findViewById(android.R.id.tabs).setVisibility(View.GONE);
 		}
 	}
 
@@ -46,29 +49,27 @@ public class FrameActivity extends DililyActivity implements TabContentFactory,
 
 	public void addFrame(Class<? extends Frame> clz, View tab) {
 		if (mTabHost == null) {
-			mTabHost = (TabHost) findViewById(android.R.id.tabhost);
+			mTabHost = (QQTabHost) findViewById(android.R.id.tabhost);
 			mTabHost.setup();
 			mTabHost.setOnTabChangedListener(this);
-			if (mTabHost instanceof QQTabHost) {
-				QQTabHost tabHost = (QQTabHost) mTabHost;
-				tabHost.setOnTabSelectionListener(new OnTabSelectionListener() {
-
-					@Override
-					public void onTabSelected(int pre, int cur, QQTabHost from) {
-						if (pre == cur) {
-							// 只放开需求的部分
-							Frame f = getCurrentFrame();
-							if (null != f) {
-								f.onFrameTabClick();
-							}
+			mTabHost.setOnTabSelectionListener(new OnTabSelectionListener() {
+				@Override
+				public void onTabSelected(int pre, int cur, QQTabHost from) {
+					if (pre == cur) {
+						Frame f = getCurrentFrame();
+						if (null != f) {
+							f.onFrameTabClick();
 						}
 					}
-				});
-			}
+				}
+			});
 		}
-		TabSpec spec = mTabHost.newTabSpec(clz.getName()).setIndicator(tab);
+		
+		TabSpec spec = mTabHost.newTabSpec(clz.getName());
+		spec.setIndicator(tab);
 		spec.setContent(this);
-		mTabHost.addTab(mTabHost.newTabSpec(clz.getName()).setIndicator(tab).setContent(this));
+		mTabHost.addTab(spec);
+		tabCount ++;
 	}
 
 	/**
@@ -134,6 +135,7 @@ public class FrameActivity extends DililyActivity implements TabContentFactory,
 		for (Frame frame : all) {
 			frame.onDestroy();
 		}
+		mFrames.clear();
 	}
 
 	public int getCurrentTab() {

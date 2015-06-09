@@ -37,7 +37,7 @@ public class DililyDatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		String[] sqls = {
-			"CREATE TABLE IF NOT EXISTS `configurations`(`key` VARCHAR(32) PRIMARY KEY, `value` VARCHAR(256))",
+			"CREATE TABLE IF NOT EXISTS `configurations`(`key` VARCHAR(32) PRIMARY KEY, `value` VARCHAR(256))",		//可以用 SharedPreferences替代
 			"CREATE TABLE IF NOT EXISTS `messages`("
 			+ "`id` INTEGER PRIMARY KEY AUTOINCREMENT, "
 			+ "`fromUser` VARCHAR(30), "

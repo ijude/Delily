@@ -6,10 +6,10 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 
-import com.sh.dilily.activity.DililyActivity;
+import com.sh.dilily.activity.DelilyActivity;
 import com.sh.dilily.net.DililyNetworkHelper;
 
-public abstract class DililyHandler<T extends DililyActivity> extends Handler {
+public abstract class DililyHandler<T extends DelilyActivity> extends Handler {
 	
 	private WeakReference<T> activity;
 	
