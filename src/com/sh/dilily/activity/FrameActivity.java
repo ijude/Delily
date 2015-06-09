@@ -6,6 +6,7 @@ import java.util.Map;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TabHost.OnTabChangeListener;
@@ -46,8 +47,8 @@ public class FrameActivity extends DelilyActivity implements TabContentFactory,
 			getCurrentFrame().onPause();
 		}
 	}
-
-	public void addFrame(Class<? extends Frame> clz, View tab) {
+	
+	protected QQTabHost getTabHost() {
 		if (mTabHost == null) {
 			mTabHost = (QQTabHost) findViewById(android.R.id.tabhost);
 			mTabHost.setup();
@@ -64,8 +65,23 @@ public class FrameActivity extends DelilyActivity implements TabContentFactory,
 				}
 			});
 		}
-		
-		TabSpec spec = mTabHost.newTabSpec(clz.getName());
+		return mTabHost;
+	}
+
+	public void addFrame(Class<? extends Frame> clz, int labelId, int resId) {
+		String label = getResources().getString(labelId);
+		addFrame(clz, label, getResources().getDrawable(resId));
+	}
+	public void addFrame(Class<? extends Frame> clz, CharSequence label, Drawable icon) {
+		TabSpec spec = getTabHost().newTabSpec(clz.getName());
+		spec.setIndicator(label, icon);
+		spec.setContent(this);
+		mTabHost.addTab(spec);
+		tabCount ++;
+	}
+	
+	public void addFrame(Class<? extends Frame> clz, View tab) {
+		TabSpec spec = getTabHost().newTabSpec(clz.getName());
 		spec.setIndicator(tab);
 		spec.setContent(this);
 		mTabHost.addTab(spec);

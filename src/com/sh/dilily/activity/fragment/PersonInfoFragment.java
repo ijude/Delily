@@ -22,27 +22,46 @@ public abstract class PersonInfoFragment extends Frame implements AdapterView.On
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 	
-	protected void editText(CharSequence label, String current, boolean not_empty) {
+	protected void editText(CharSequence label, String current, boolean notEmpty, String desc) {
 		Intent intent = new Intent(getContext(), EditActivity.class);
-		intent.putExtra(EditActivity.KEY_TYPE, not_empty ? EditActivity.EDIT_TYPE_TEXT_NON_EMPTY : EditActivity.EDIT_TYPE_TEXT);
+		intent.putExtra(EditActivity.KEY_TYPE, notEmpty ? EditActivity.EDIT_TYPE_TEXT_NON_EMPTY : EditActivity.EDIT_TYPE_TEXT);
 		intent.putExtra(EditActivity.KEY_TITLE, (CharSequence)label);
 		intent.putExtra(EditActivity.KEY_DEFAULT, (CharSequence)current);
+		if (desc != null) {
+			intent.putExtra(EditActivity.KEY_DESC, desc);
+		}
 		startActivityForResult(intent, EDIT_REQUEST_CODE);
 	}
 	
+	protected void editText(CharSequence label, String current, boolean notEmpty) {
+		editText(label, current, notEmpty, null);
+	}
+	
 	protected void editTextarea(CharSequence label, String current) {
+		editTextarea(label, current, null);
+	}
+	protected void editTextarea(CharSequence label, String current, String desc) {
 		Intent intent = new Intent(getContext(), EditActivity.class);
 		intent.putExtra(EditActivity.KEY_TYPE, EditActivity.EDIT_TYPE_TEXTAREA);
 		intent.putExtra(EditActivity.KEY_TITLE, (CharSequence)label);
 		intent.putExtra(EditActivity.KEY_DEFAULT, (CharSequence)current);
 		startActivityForResult(intent, EDIT_REQUEST_CODE);
+		if (desc != null) {
+			intent.putExtra(EditActivity.KEY_DESC, desc);
+		}
 	}
 	
 	protected void editNumber(CharSequence label, int num) {
+		editNumber(label, num, null);
+	}
+	protected void editNumber(CharSequence label, int num, String desc) {
 		Intent intent = new Intent(getContext(), EditActivity.class);
 		intent.putExtra(EditActivity.KEY_TYPE, EditActivity.EDIT_TYPE_INT);
 		intent.putExtra(EditActivity.KEY_TITLE, (CharSequence)label);
 		intent.putExtra(EditActivity.KEY_DEFAULT, (CharSequence)String.valueOf(num));
+		if (desc != null) {
+			intent.putExtra(EditActivity.KEY_DESC, desc);
+		}
 		startActivityForResult(intent, EDIT_REQUEST_CODE);
 	}
 	

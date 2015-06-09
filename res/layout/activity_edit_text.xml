@@ -18,7 +18,7 @@
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:layout_gravity="top"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:gravity="center"
     android:background="#ffffff"
     >
@@ -38,8 +38,9 @@
         android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
         android:textColor="@android:color/secondary_text_dark_nodisable"
-        android:textSize="13sp"
+        android:textSize="14sp"
         android:layout_margin="15dp"
+        android:layout_gravity="left"
         android:gravity="left"
         />
 </LinearLayout>

@@ -16,8 +16,8 @@ public class TeacherActivity extends FrameActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_teacher);
 		
-		addFrame(TeacherInfoFragment.class, getIcon(R.string.home, R.drawable.icon_home));
-		addFrame(TeacherMessageFragment.class, getIcon(R.string.message, R.drawable.icon_message));
+		addFrame(TeacherInfoFragment.class, R.string.home, R.drawable.tabicon_user);
+		addFrame(TeacherMessageFragment.class, R.string.message, R.drawable.tabicon_message);
 /*
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		ImageView splash = new ImageView(this);

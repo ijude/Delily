@@ -115,7 +115,7 @@ public class TeacherInfoFragment extends PersonInfoFragment {
 			return;
 		String attr = item.label.toString();
 		if (PersonAttributes.KEY_NAME.equals(attr)) {
-			editText(PersonAttributes.KEY_NAME, teacher.name, true);
+			editText(PersonAttributes.KEY_NAME, teacher.name, true, "姓名不能为空");
 		} else if (PersonAttributes.KEY_GENDER.equals(attr)) {
 			editSelect(PersonAttributes.KEY_GENDER, teacher.gender, new String[]{"男", "女"});
 		} else if (PersonAttributes.KEY_MAJOR.equals(attr)) {
@@ -131,6 +131,8 @@ public class TeacherInfoFragment extends PersonInfoFragment {
 			editTextarea(PersonAttributes.KEY_EXPERIENCES, teacher.experiences);
 		} else if (PersonAttributes.KEY_DESC.equals(attr)) {
 			editTextarea(PersonAttributes.KEY_DESC, teacher.desc);
+		} else if (PersonAttributes.KEY_ADDRESS.equals(attr)) {
+			editTextarea(PersonAttributes.KEY_ADDRESS, teacher.address);
 		}
 	}
 	

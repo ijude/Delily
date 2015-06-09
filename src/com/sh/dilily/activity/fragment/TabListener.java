@@ -1,5 +1,6 @@
 package com.sh.dilily.activity.fragment;
 
+/*
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
@@ -18,7 +19,6 @@ public class TabListener<T extends Fragment> implements ActionBar.TabListener {
      public TabListener(Activity activity, String tag, Class<T> clz) {
          this(activity, tag, clz, null);
      }
-
      public TabListener(Activity activity, String tag, Class<T> clz, Bundle args) {
          mActivity = activity;
          mTag = tag;
@@ -55,3 +55,4 @@ public class TabListener<T extends Fragment> implements ActionBar.TabListener {
          Toast.makeText(mActivity, "Reselected!", Toast.LENGTH_SHORT).show();
      }
  }
+ */

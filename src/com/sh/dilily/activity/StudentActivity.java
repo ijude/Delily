@@ -17,9 +17,9 @@ public class StudentActivity extends FrameActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_student);
 		
-		addFrame(StudentMainFragment.class, getIcon(R.string.home, R.drawable.icon_home));
-		addFrame(StudentMessageFragment.class, getIcon(R.string.message, R.drawable.icon_message));
-		addFrame(StudentInfoFragment.class, getIcon(R.string.me, R.drawable.icon_user));
+		addFrame(StudentMainFragment.class, R.string.home, R.drawable.tabicon_home);	//getIcon(R.string.home, R.drawable.icon_home)
+		addFrame(StudentMessageFragment.class, R.string.message, R.drawable.tabicon_message);
+		addFrame(StudentInfoFragment.class, R.string.me, R.drawable.tabicon_user);
 	}
 	
 	@Override
